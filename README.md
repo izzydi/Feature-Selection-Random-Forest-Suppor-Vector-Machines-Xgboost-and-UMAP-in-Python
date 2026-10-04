@@ -1,45 +1,55 @@
 # Feature Selection, Classification and UMAP in Python
 
-A machine-learning project that combines **feature selection, classical classifiers and dimensionality reduction** on a high-dimensional classification dataset.
+A high-dimensional machine-learning project combining **training-only preprocessing, feature selection, tree-based classification and supervised UMAP**.
 
-## Project overview
+## Primary workflow
 
-The analysis compares multiple modelling tools and uses UMAP to inspect structure in the feature space. The notebook brings together supervised classification, feature ranking/selection and low-dimensional visualization in a single workflow.
+[`src/feature_selection_pipeline.py`](src/feature_selection_pipeline.py) is the audited implementation. It uses a stratified train/test split, fits robust scaling, quantile transformation and `SelectKBest` on training data only, compares Random Forest and XGBoost on the held-out test set, and evaluates XGBoost on a supervised UMAP representation learned from training data only.
 
-## Repository contents
+Optional validation datasets are transformed with the same fitted preprocessing, selector and UMAP objects; they are never used to fit those transformations.
 
-- [`feature_selection_umap_classification.ipynb`](feature_selection_umap_classification.ipynb) — complete Jupyter notebook.
-- [`requirements.txt`](requirements.txt) — Python dependencies.
-- [`.gitignore`](.gitignore) — local Python/Jupyter exclusions.
+## Repository structure
+
+```text
+.
+├── src/
+│   └── feature_selection_pipeline.py
+├── data/
+│   └── README.md
+├── archive/
+│   ├── README.md
+│   └── legacy_feature_selection_exploration.ipynb
+├── requirements.txt
+└── README.md
+```
 
 ## Methods and tools
 
-The workflow uses:
+- `pandas` and `NumPy` for data handling
+- `scikit-learn` for splitting, preprocessing, feature selection and Random Forest
+- `xgboost` for gradient-boosted classification
+- `umap-learn` for supervised dimensionality reduction
 
-- `pandas` and `NumPy`,
-- `scikit-learn`,
-- `xgboost`,
-- `umap-learn`,
-- `matplotlib` and `seaborn`.
+The audited workflow reports accuracy, balanced accuracy and weighted F1 on the untouched hold-out set and writes a machine-readable summary to `outputs/metrics.json`.
 
-Methods include Random Forest, Support Vector Machines, XGBoost, univariate feature selection, scaling and quantile transformation, confusion matrices, classification metrics and UMAP-based dimensionality reduction.
+## Legacy notebook
 
-## Data requirements
+The original notebook is retained under [`archive/`](archive/) for transparency. It contains historical machine-specific paths and leakage-prone preprocessing choices, so it is no longer presented as the recommended implementation.
 
-The project operates on a high-dimensional source dataset that is not included in this repository. Reproduction therefore requires access to the original data and updating any legacy local data path in the notebook.
+## Data
 
-## Reproducing the analysis
+Raw data are not committed. See [`data/README.md`](data/README.md) for the expected 112-predictor-plus-target schema.
+
+## Run locally
 
 ```bash
 python -m venv .venv
-# Windows
-.venv\Scripts\activate
+# Windows: .venv\Scripts\activate
+# macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
-jupyter notebook
+python src/feature_selection_pipeline.py
 ```
-
-Open `feature_selection_umap_classification.ipynb`, update the source-data path if required and run the notebook sequentially.
 
 ## Scope
 
-This repository is a portfolio example of exploratory model comparison, feature-selection techniques and manifold visualization in Python.
+This repository demonstrates reproducible feature selection, model comparison and out-of-sample manifold transformation. It is a portfolio project rather than a production scoring service.
