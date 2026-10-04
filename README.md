@@ -1,6 +1,6 @@
 # Feature Selection, Classification and UMAP in Python
 
-A machine-learning notebook that combines **feature selection, classical classifiers and dimensionality reduction** on a high-dimensional classification dataset.
+A machine-learning project that combines **feature selection, classical classifiers and dimensionality reduction** on a high-dimensional classification dataset.
 
 ## Project overview
 
@@ -8,11 +8,13 @@ The analysis compares multiple modelling tools and uses UMAP to inspect structur
 
 ## Repository contents
 
-- [`v_02.ipynb`](v_02.ipynb) — complete Jupyter notebook.
+- [`feature_selection_umap_classification.ipynb`](feature_selection_umap_classification.ipynb) — complete Jupyter notebook.
+- [`requirements.txt`](requirements.txt) — Python dependencies.
+- [`.gitignore`](.gitignore) — local Python/Jupyter exclusions.
 
 ## Methods and tools
 
-The notebook uses Python libraries including:
+The workflow uses:
 
 - `pandas` and `NumPy`,
 - `scikit-learn`,
@@ -20,26 +22,23 @@ The notebook uses Python libraries including:
 - `umap-learn`,
 - `matplotlib` and `seaborn`.
 
-The workflow includes tools such as:
-
-- Random Forest,
-- Support Vector Machines,
-- XGBoost,
-- univariate feature selection,
-- scaling and quantile transformation,
-- confusion matrices and classification metrics,
-- UMAP-based dimensionality reduction and visualization.
+Methods include Random Forest, Support Vector Machines, XGBoost, univariate feature selection, scaling and quantile transformation, confusion matrices, classification metrics and UMAP-based dimensionality reduction.
 
 ## Data requirements
 
-The notebook operates on a high-dimensional dataset that is not included in this repository. Reproduction requires access to the original source data and may require updating local file paths in the notebook.
+The project operates on a high-dimensional source dataset that is not included in this repository. Reproduction therefore requires access to the original data and updating any legacy local data path in the notebook.
 
 ## Reproducing the analysis
 
-1. Install Python and Jupyter.
-2. Install the required packages (`pandas`, `numpy`, `scikit-learn`, `xgboost`, `umap-learn`, `matplotlib`, `seaborn`).
-3. Update the dataset path where necessary.
-4. Run `v_02.ipynb` from top to bottom.
+```bash
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+pip install -r requirements.txt
+jupyter notebook
+```
+
+Open `feature_selection_umap_classification.ipynb`, update the source-data path if required and run the notebook sequentially.
 
 ## Scope
 
